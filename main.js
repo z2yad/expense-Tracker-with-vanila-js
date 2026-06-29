@@ -57,5 +57,20 @@ btn.addEventListener('click', function (e) {
     };
     console.log(transaction);
     transactions.push(transaction);
+    //استدعاء الدالة لعرض الترانزكشن    
+    renderTransactions(transaction);
     form.reset();
 });
+//create row in  table
+const transactionsBody = document.querySelector('#transactions-body');
+function renderTransactions(transaction) {
+    const row = document.createElement('tr');
+    row.innerHTML = `
+    <td>${transaction.title}</td>
+    <td>${transaction.amount}</td>
+    <td>${transaction.category}</td>
+    <td>${transaction.date}</td>
+    <td><button>Edit</button> <button>Delete</button></td>
+`;
+    transactionsBody.appendChild(row);
+}

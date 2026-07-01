@@ -173,3 +173,20 @@ if (searchInput) {
         });
     });
 }
+// Dashbord statics
+const balance = document.getElementById('balance');
+const income = document.getElementById('income-total');
+const expense = document.getElementById('expense-total');
+
+function updateDashbord() {
+    const totalIncome = transactions.filter((transaction) => transaction.type === "income").reduce((total, transaction) => total + transaction.amount, 0);
+
+    const totalExpense = transactions.filter((transaction) => transaction.type === "expense").reduce((total, transaction) => total + transaction.amount, 0);
+
+    const totalBalance = totalIncome - totalExpense;
+
+    balance.textContent = `$${totalBalance}`;
+    income.textContent = `$${totalIncome}`;
+    expense.textContent = `$${totalExpense}`;
+}
+updateDashbord(); 

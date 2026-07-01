@@ -198,10 +198,16 @@ const highestIncome = document.getElementById('highest-income');
 const topCategory = document.getElementById('top-category');
 
 function updateStatistics() {
-    totalTransactions.textContent = `Total Transactions : ${transactions.length}`;
-    highestExpense.textContent = `Highest Expense : $${transactions.filter((transaction) => transaction.type === "expense").reduce((total, transaction) => total + transaction.amount, 0)}`;
-    highestIncome.textContent = `Highest Income : $${transactions.filter((transaction) => transaction.type === "income").reduce((total, transaction) => total + transaction.amount, 0)}`;
+    totalTransactions.textContent = ` Total Transactions : ${transactions.length}`
+    highestExpense.textContent = `Highest Expense : ${transactions.filter((transaction) => transaction.type === "expense").reduce((total, transaction) => total + transaction.amount, 0)}`;
+    highestIncome.textContent = `Highest Income : ${transactions.filter((transaction) => transaction.type === "income").reduce((total, transaction) => total + transaction.amount, 0)}`;
 
-    topCategory.textContent = `Top Category : ${transactions.reduce((total, transaction) => total + transaction.amount, 0)}`;
+    topCategory.textContent = `Top Category : ${transactions.reduce((total, transaction) => {
+        if (transaction.type === "expense") {
+            return transaction.category;
+        } else {
+            return total;
+        }
+    }, {})}`;
 }
 updateStatistics();

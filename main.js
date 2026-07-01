@@ -87,7 +87,42 @@ function renderTransactions(transaction) {
     transactionsBody.appendChild(row);
 }
 
-
+//edit
+transactionsBody.addEventListener('click',(e)=>{
+if(e.target.classList.contains('edit-btn')){
+    const id = Number(e.target.parentElement.parentElement.dataset.id);
+    const tr = e.target.parentElement.parentElement;
+    const title = tr.children[0].textContent;
+    const amount = tr.children[1].textContent;
+    const category = tr.children[2].textContent;
+    const date = tr.children[3].textContent;
+    titleInput.value = title;
+    amountInput.value = amount;
+    categoryInput.value = category;
+    dateInput.value = date;
+    btn.textContent = "Update";
+    btn.addEventListener('click',()=>{
+        const updatedTransaction = {
+            id,
+            title:titleInput.value,
+            amount:Number(amountInput.value),
+            category:categoryInput.value,
+            type:typeInput.value,
+            date:dateInput.value
+        };
+        const transactionIndex = transactions.findIndex((transaction)=>transaction.id===id);
+        transactions[transactionIndex] = updatedTransaction;
+        transactionsBody.innerHTML = "";
+        transactions.forEach((transaction)=>{
+            renderTransactions(transaction);
+        })
+        btn.textContent = "Add Transaction";
+        
+    })
+    //save in local storage
+    localStorage.setItem('transactions', JSON.stringify(transactions));
+}
+})
 
 
 

@@ -61,9 +61,18 @@ btn.addEventListener('click', function (e) {
     transactions.push(transaction);
     //استدعاء الدالة لعرض الترانزكشن    
     renderTransactions(transaction);
+    // save in local storage
+    localStorage.setItem('transactions', JSON.stringify(transactions));
     form.reset();
+    titleInput.focus();
 });
-//create
+//read from local storage
+if (localStorage.getItem('transactions')) {
+    transactions = JSON.parse(localStorage.getItem('transactions'));
+    transactions.forEach((transaction) => {
+        renderTransactions(transaction);
+    });
+}
 
 function renderTransactions(transaction) {
     const row = document.createElement('tr');
@@ -77,7 +86,11 @@ function renderTransactions(transaction) {
 `;
     transactionsBody.appendChild(row);
 }
-//update
+
+
+
+
+
 //delete
 transactionsBody.addEventListener('click', function (e) {
     if (e.target.classList.contains('del-btn')) {
